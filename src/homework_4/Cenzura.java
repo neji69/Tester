@@ -10,6 +10,5 @@ public class Cenzura {
         Scanner scanner = new Scanner(System.in);
         String s = scanner.nextLine();
         System.out.println(s.replace("бяка", "«вырезано цензурой»"));
-
     }
 }
