@@ -1,65 +1,39 @@
 package homework_4;
 
-import java.util.Scanner;
+
+//        Реализовать класс Calculator, который будет содержать статические методы
+//        для операций вычитания, сложения, умножения, деления и взятия процента от
+//        числа. Класс должен работать как с целыми числами, так и с дробями.
 
 public class Calculator {
-    static Scanner scanner = new Scanner(System.in);
-
     public static void main(String[] args) {
+        double a = 65.54;// обьясни про var java 10-11
+        double b = 15.24;
 
-        double a = getDouble();
-        char deystvie = getDeystvie();
-        double b = getDouble();
-        double result = calc(a, b, deystvie);
-        System.out.println("Результат операции: " + result);
+        System.out.println(Calculator.minus(a, b));
+        System.out.println(Calculator.plus(a, b));
+        System.out.println(Calculator.delenie(a, b));
+        System.out.println(Calculator.ymnozhenie(a, b));
+        System.out.println(Calculator.procent(a, b));
     }
 
-    public static double getDouble() {
-        System.out.println("Введите число:");
-        double num;
-        if (scanner.hasNextDouble()) {
-            num = scanner.nextDouble();
-        } else {
-            System.out.println("Ошибка при вводе числа.");
-            scanner.next();
-            num = getDouble();
-        }
-        return num;
+    private static double minus(double a, double b) {
+        return a - b;
     }
 
-    private static char getDeystvie() {
-
-        System.out.println("Введите операцию:");
-        char operation;
-        if (scanner.hasNext()) {
-            operation = scanner.next().charAt(0);
-        } else {
-            System.out.println("Ошибка при вводе операции.");
-            scanner.next();
-            operation = getDeystvie();
-        }
-        return operation;
+    private static double plus(double a, double b) {
+        return a + b;
     }
 
-    private static double calc(double a, double b, char deystvie) {
-        double result;
-        switch (deystvie) {
-            case '+':
-                result = a + b;
-                break;
-            case '-':
-                result = a - b;
-                break;
-            case '*':
-                result = a * b;
-                break;
-            case '/':
-                result = a / b;
-                break;
-            default:
-                System.out.println("Операция не распознана. Повторите.");
-                result = calc(a, b, getDeystvie());
-        }
-        return result;
+    private static double ymnozhenie(double a, double b) {
+        return a * b;
+    }
+
+    private static double delenie(double a, double b) {
+        return a / b;
+    }
+
+    private static double procent(double a, double b) {
+        return b * (a / 100);
     }
 }

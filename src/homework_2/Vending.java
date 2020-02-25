@@ -1,63 +1,87 @@
 package homework_2;
 
+import java.util.Arrays;
+import java.util.Scanner;
+
+
+import static homework_2.DrinkEnum.*;
+
 public class Vending {
 
-    private int balance;
-    public int kursor;
+    private static int balance = 0;
 
-    public void showMenu(Napitok spisok[]) {
-        System.out.println("*МЕНЮ*");
-        for (int i = 0; i < spisok.length; i++) {
-            if (i == 0) {
-                System.out.println("--------------------------------------------");
+
+    public static void getBalance() {
+        System.out.println("Баланс = " + balance);
+    }
+
+    public static void showMenu() {
+        System.out.println("*MENU*");
+        System.out.println(Arrays.toString(DrinkEnum.values()));
+    }
+
+    public static void putCashInMoneyBox(int cash) {
+        if (cash < 0) {
+            System.out.println("You cannot deposit a negative amount!");
+        } else Vending.balance += cash;
+        getBalance();
+    }
+
+    public static void selectDrink(int kursor) {
+
+        if (SPRITE.ordinal() + 1 == kursor) {
+            System.out.println("You select: " + SPRITE.getName() + " " + SPRITE.getPrice() + " RUB");
+            buyDrink(SPRITE);
+        } else {
+            if (PEPSI.ordinal() + 1 == kursor) {
+                System.out.println("You select: " + PEPSI.getName() + " " + PEPSI.getPrice() + " RUB");
+                buyDrink(PEPSI);
+            } else {
+                if (MIRINDA.ordinal() + 1 == kursor) {
+                    System.out.println("You select: " + MIRINDA.getName() + " " + MIRINDA.getPrice() + " RUB");
+                    buyDrink(MIRINDA);
+                } else {
+                    if (LEMONADE.ordinal() + 1 == kursor) {
+                        System.out.println("You select: " + LEMONADE.getName() + " " + LEMONADE.getPrice() + " RUB");
+                        buyDrink(LEMONADE);
+                    } else {
+                        if (WATER.ordinal() + 1 == kursor) {
+                            System.out.println("You select: " + WATER.getName() + " " + WATER.getPrice() + " RUB");
+                            buyDrink(WATER);
+                        } else System.out.println("You Stupid MEN!!! Choise Number 1 - 5");
+                    }
+                }
             }
-            System.out.println("ID:" + spisok[i].getId() + " Название: " + spisok[i].getName() + " Цена: " + spisok[i].getPrice() + " руб.");
-
         }
     }
 
-    public void pokypkaNapitka(int nomer, Napitok[] spisok) {
-        switch (nomer) {
-            case 100:
-                if (balance >= spisok[0].getPrice()) {
-                    System.out.println("Вы успешно купили :" + spisok[0].getName() + " осталось на балансе: " + (balance -= spisok[0].getPrice()));
-                } else System.out.println("Не хватает денег!!! Нужно еще " + (spisok[0].getPrice() - balance));
-                break;
-            case 101:
-                if (balance >= spisok[1].getPrice()) {
-                    System.out.println("Вы успешно купили :" + spisok[1].getName() + " осталось на балансе: " + (balance -= spisok[1].getPrice()));
-                } else System.out.println("Не хватает денег!!! Нужно еще " + (spisok[1].getPrice() - balance));
-                break;
-            case 102:
-                if (balance >= spisok[2].getPrice()) {
-                    System.out.println("Вы успешно купили :" + spisok[2].getName() + " осталось на балансе: " + (balance -= spisok[2].getPrice()));
-                } else System.out.println("Не хватает денег!!! Нужно еще " + (spisok[2].getPrice() - balance));
-                break;
-            case 150:
-                if (balance >= spisok[3].getPrice()) {
-                    System.out.println("Вы успешно купили :" + spisok[3].getName() + " осталось на балансе: " + (balance -= spisok[3].getPrice()));
-                } else System.out.println("Не хватает денег!!! Нужно еще " + (spisok[3].getPrice() - balance));
-                break;
-            case 111:
-                if (balance >= spisok[4].getPrice()) {
-                    System.out.println("Вы успешно купили :" + spisok[4].getName() + " осталось на балансе: " + (balance -= spisok[4].getPrice()));
-                } else System.out.println("Не хватает денег!!! Нужно еще " + (spisok[4].getPrice() - balance));
-                break;
-            default:
-                System.out.println("Некоректный выбор");
-                break;
 
-        }
+    private static void buyDrink(DrinkEnum drink) {
+        Scanner scanner = new Scanner(System.in);
+        int ansver;
+
+        do {
+            System.out.println("You have buy this drink? 1 - yes, 0 - no");
+            ansver = scanner.nextInt();
+            if (ansver == 1) {
+                if (balance == 0) {
+                    System.out.println("No money!");
+                    return;
+                }
+
+                if (balance < drink.getPrice()) {
+                    System.out.println("Insufficient money!");
+                    return;
+                }
+                if (balance >= drink.getPrice()) {
+                    balance -= drink.getPrice();
+                    System.out.println("You buy " + drink.getName() + " balance = " + balance);
+
+                }
+            }
+        } while (ansver != 0);
+
+
     }
 
-    public void setBalance(int vznos) {
-
-        if (vznos < 0) System.out.println("Нельзя внести отрицательную сумму!");
-        else this.balance += vznos;
-    }
-
-    public int getBalance() {
-        return balance;
-    }
 }
-
